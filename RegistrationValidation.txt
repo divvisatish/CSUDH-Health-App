@@ -1,0 +1,110 @@
+package com.divvisatish.csudhhealthapp;
+
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+public class RegisterActivity extends AppCompatActivity {
+
+    private Button register;
+    private FirebaseAuth auth;
+    Context context = this;
+    private EditText enterEmail, enterPassword, reEnterPassword, firstName, lastName;
+    private ProgressBar progress;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.register);
+
+        auth = FirebaseAuth.getInstance();
+
+        enterEmail = (EditText) findViewById(R.id.editText);
+        enterPassword = (EditText) findViewById(R.id.editText2);
+        register = (Button) findViewById(R.id.buttonRegisterNewUser);
+        progress = (ProgressBar) findViewById(R.id.progressBar);
+        reEnterPassword = (EditText) findViewById(R.id.editText3);
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = enterEmail.getText().toString();
+                String password = enterPassword.getText().toString();
+                String passwordReEnter = reEnterPassword.getText().toString();
+
+                if(TextUtils.isEmpty(email)) {
+                    Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(TextUtils.isEmpty(password)) {
+                    Toast.makeText(getApplicationContext(), "Please enter valid password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(TextUtils.isEmpty(passwordReEnter)) {
+                    Toast.makeText(getApplicationContext(), "Please enter valid password ", Toast.LENGTH_SHORT).show();
+                    return;
+
+                } else if(!TextUtils.equals(passwordReEnter, password)) {
+                    Toast.makeText(getApplicationContext(), "Password is not matching, Please enter valid password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                progress.setVisibility(View.VISIBLE);
+
+                auth.createUserWithEmailAndPassword(email,password)
+                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                       Toast.makeText(RegisterActivity.this, "UserName and Password is set successfully" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+
+                        if(!task.isSuccessful()) {
+                            Toast.makeText(RegisterActivity.this, "Signup Failed" + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                            finish();
+                        }
+                    }
+                });
+            }
+        });
+
+//        addListenerOnRegisterButton();
+    }
+
+
+
+//    public void addListenerOnRegisterButton() {
+//
+//        final Context context = this;
+//        register.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View arg0) {
+//
+//                Intent intent = new Intent(context, HomepageActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//    }
+@Override
+protected void onResume() {
+    super.onResume();
+    progress.setVisibility(View.GONE);
+}
+}
