@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/colorAccent"
+tools:context="com.csudh.healthapp.csudhhealthapp.RegisterActivity">
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:elevation="0dp"
+        android:hint="Enter your Email*"
+        android:inputType="textEmailAddress"
+        android:textColorHint="@android:color/background_light"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText,RtlHardcoded,UnusedAttribute"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your Password*"
+        android:inputType="textPassword"
+        android:textColorHint="@android:color/background_light"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText,RtlHardcoded"
+        android:layout_below="@+id/editText"
+        android:layout_alignLeft="@+id/editText"
+        android:layout_alignStart="@+id/editText" />
+
+<EditText
+    android:id="@+id/editText3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:hint="Reenter your Password*"
+    android:inputType="textPassword"
+    android:textColorHint="@android:color/background_light"
+    android:textSize="22sp"
+    tools:ignore="HardcodedText"
+    android:layout_below="@+id/editText2"
+    android:layout_alignLeft="@+id/editText2"
+    android:layout_alignStart="@+id/editText2" />
+
+<EditText
+    android:id="@+id/editText6"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:hint="Last Name"
+    android:inputType="textPersonName"
+    android:textColorHint="@android:color/background_light"
+    android:textSize="22sp"
+    tools:ignore="HardcodedText"
+    android:layout_below="@+id/editText7"
+    android:layout_alignLeft="@+id/editText7"
+    android:layout_alignStart="@+id/editText7" />
+
+<EditText
+    android:id="@+id/editText7"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:hint="First Name"
+    android:inputType="textPersonName"
+    android:textColorHint="@android:color/background_light"
+    android:textSize="22sp"
+    tools:ignore="HardcodedText"
+    android:layout_below="@+id/editText3"
+    android:layout_alignLeft="@+id/editText3"
+    android:layout_alignStart="@+id/editText3" />
+
+<EditText
+    android:id="@+id/editText8"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:hint="Birth Date* (MM/DD/YYYY)"
+    android:inputType="date"
+    android:textColorHint="@android:color/background_light"
+    android:textSize="22sp"
+    tools:ignore="HardcodedText"
+    android:layout_below="@+id/editText6"
+    android:layout_alignLeft="@+id/editText6"
+    android:layout_alignStart="@+id/editText6" />
+
+
+    <Button
+        android:id="@+id/buttonRegisterNewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:text="Register"
+        android:textSize="28sp"
+        tools:ignore="HardcodedText"
+        android:layout_below="@+id/spinner"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/editText8"
+        android:layout_alignLeft="@+id/editText8"
+        android:layout_alignStart="@+id/editText8" />
+</android.widget.RelativeLayout>
