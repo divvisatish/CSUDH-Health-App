@@ -12,6 +12,24 @@ public class Person {
     private String userName;
     private String emailId;
     private String password;
+    private String bloodTypeName;
+    private int bloodTypeId;
+
+    public int getBloodTypeId() {
+        return bloodTypeId;
+    }
+
+    public void setBloodTypeId(int bloodTypeId) {
+        this.bloodTypeId = bloodTypeId;
+    }
+
+    public String getBloodTypeName() {
+        return bloodTypeName;
+    }
+
+    public void setBloodTypeName(String bloodTypeName) {
+        this.bloodTypeName = bloodTypeName;
+    }
 
     public String getLastName() {
         return lastName;
