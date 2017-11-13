@@ -22,7 +22,9 @@ tools:context="com.csudh.healthapp.csudhhealthapp.RegisterActivity">
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textColorHint="@android:color/background_light"
         android:textSize="22sp"
-        tools:ignore="HardcodedText,RtlHardcoded,UnusedAttribute" />
+        tools:ignore="HardcodedText,RtlHardcoded,UnusedAttribute"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"/>
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -36,7 +38,9 @@ tools:context="com.csudh.healthapp.csudhhealthapp.RegisterActivity">
         tools:ignore="HardcodedText,RtlHardcoded"
         android:layout_below="@+id/editTextEmail"
         android:layout_alignLeft="@+id/editTextEmail"
-        android:layout_alignStart="@+id/editTextEmail" />
+        android:layout_alignStart="@+id/editTextEmail"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"/>
 
     <EditText
         android:id="@+id/editTextConfirmPassword"
@@ -51,7 +55,9 @@ tools:context="com.csudh.healthapp.csudhhealthapp.RegisterActivity">
         tools:ignore="HardcodedText"
         android:layout_below="@+id/editTextPassword"
         android:layout_alignLeft="@+id/editTextPassword"
-        android:layout_alignStart="@+id/editTextPassword" />
+        android:layout_alignStart="@+id/editTextPassword"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"/>
 
     <EditText
         android:id="@+id/editTextFirstName"
@@ -66,7 +72,9 @@ tools:context="com.csudh.healthapp.csudhhealthapp.RegisterActivity">
         tools:ignore="HardcodedText"
         android:layout_below="@+id/editTextConfirmPassword"
         android:layout_alignLeft="@+id/editTextConfirmPassword"
-        android:layout_alignStart="@+id/editTextConfirmPassword" />
+        android:layout_alignStart="@+id/editTextConfirmPassword"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"/>
 
     <EditText
         android:id="@+id/editTextLastName"
@@ -81,7 +89,9 @@ tools:context="com.csudh.healthapp.csudhhealthapp.RegisterActivity">
         tools:ignore="HardcodedText"
         android:layout_below="@+id/editTextFirstName"
         android:layout_alignLeft="@+id/editTextFirstName"
-        android:layout_alignStart="@+id/editTextFirstName" />
+        android:layout_alignStart="@+id/editTextFirstName"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"/>
 
     <EditText
         android:id="@+id/editTextBirthDate"
@@ -89,14 +99,17 @@ tools:context="com.csudh.healthapp.csudhhealthapp.RegisterActivity">
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Birth Date* (MM/DD/YYYY)"
-        android:inputType="date"
         android:textColorHint="@android:color/background_light"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="22sp"
         tools:ignore="HardcodedText"
         android:layout_below="@+id/editTextLastName"
         android:layout_alignLeft="@+id/editTextLastName"
-        android:layout_alignStart="@+id/editTextLastName" />
+        android:layout_alignStart="@+id/editTextLastName"
+        android:inputType="none"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"
+        android:textIsSelectable="true"/>
 
     <Spinner
         android:id="@+id/spinnerBloodType"
@@ -118,6 +131,7 @@ tools:context="com.csudh.healthapp.csudhhealthapp.RegisterActivity">
         android:textSize="28sp"
         tools:ignore="HardcodedText"
         android:layout_below="@+id/spinnerBloodType"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:focusable="true"/>
 
 </android.widget.RelativeLayout>
