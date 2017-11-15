@@ -11,54 +11,65 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/radioButtonVeryUrgent"
+        android:layout_alignLeft="@+id/radioButtonImmediate"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignRight="@+id/radioButtonVeryUrgent"
+        android:layout_alignStart="@+id/radioButtonImmediate"
+        android:layout_marginLeft="8sp"
+        android:layout_marginRight="8sp"
         android:layout_marginTop="50dp"
         app:srcCompat="@drawable/piechart" />
 
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
         android:layout_below="@+id/imageView"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="47dp"
-        android:text="Very Urgent"
-        android:textColor="@android:color/background_light"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
 
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/radioButton"
-        android:layout_alignBottom="@+id/radioButton"
-        android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp"
-        android:layout_toEndOf="@+id/radioButton"
-        android:layout_toRightOf="@+id/radioButton"
-        android:text="Immediate"
-        android:textColor="@android:color/background_light"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        <RadioGroup
+            android:id="@+id/radioGroupRequestType"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35sp"
+            android:orientation="horizontal">
 
-    <RadioButton
-        android:id="@+id/radioButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/radioButton2"
-        android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp"
-        android:layout_toEndOf="@+id/radioButton2"
-        android:layout_toRightOf="@+id/radioButton2"
-        android:text="Within a day"
-        android:textColor="@android:color/background_light"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+            <RadioButton
+                android:id="@+id/radioButtonImmediate"
+                android:layout_width="120sp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15sp"
+                android:text="Immediate"
+                android:textColor="@android:color/background_light"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:buttonTint="@color/common_google_signin_btn_text_dark_default"/>
 
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/radioButtonImmediate"
+                android:text="Within a day"
+                android:textColor="@android:color/background_light"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:buttonTint="@color/common_google_signin_btn_text_dark_default"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonVeryUrgent"
+                android:layout_width="250sp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/radioButton3"
+                android:text="Very Urgent"
+                android:textColor="@android:color/background_light"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:buttonTint="@color/common_google_signin_btn_text_dark_default"/>
+        </RadioGroup>
+
+    </LinearLayout>
     <Button
         android:id="@+id/buttonBloodRequired"
         android:layout_width="wrap_content"
@@ -66,8 +77,7 @@
         android:text="Request"
         android:fontFamily="Arial"
         android:textSize="30sp"
-        android:layout_below="@+id/radioButton2"
-        android:layout_toRightOf="@+id/radioButton"
-        android:layout_toEndOf="@+id/radioButton"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true" />
 </android.widget.RelativeLayout>

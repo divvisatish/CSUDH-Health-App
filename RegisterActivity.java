@@ -1,10 +1,9 @@
 package com.csudh.healthapp.csudhhealthapp;
 
 import android.app.DatePickerDialog;
-import android.app.DialogFragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,17 +14,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
@@ -43,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     Calendar myCalendar = Calendar.getInstance();
+    boolean newUserRegistered=false;
     //DatabaseReference myChild = myRef.child("message");
 
 
@@ -93,10 +92,21 @@ public class RegisterActivity extends AppCompatActivity {
                     if (isConfirmedPasswordMatched(editTextConfirmPassword.getText().toString())) {
                         if(isFirstNameValid(editTextFirstName.getText().toString())) {
                             if(isLastNameValid(editTextLastName.getText().toString())) {
-                                if(isBloodTypeValid()) {
-                                    if (registerNewUser()) {
-                                        updateUI();
+                                if(isBirthDateValid(editTextBirthDate.getText().toString())) {
+                                    if (isBloodTypeValid()) {
+                                        if (registerNewUser()) {
+                                            return true;
+                                        }
+                                        else {
+                                            return false;
+                                        }
                                     }
+                                    else {
+                                        return false;
+                                    }
+                                }
+                                else{
+                                    return false;
                                 }
                             }
                             else {
@@ -125,10 +135,17 @@ public class RegisterActivity extends AppCompatActivity {
         return flag;
     }
 
-    private void updateUI()
+    private void updateUI(boolean flag)
     {
+        if(flag) {
             Intent intent = new Intent(this, LogInActivity.class);
             startActivity(intent);
+            newUserRegistered=true;
+        }
+        else
+        {
+            newUserRegistered=false;
+        }
     }
 
     private boolean isEmailValid(String email)
@@ -238,6 +255,31 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    private boolean isBirthDateValid(String birthday)
+    {
+        if(!birthday.isEmpty())
+        {
+            String[] birthdayStr = birthday.split("/");
+
+            Calendar userAge = new GregorianCalendar(Integer.parseInt(birthdayStr[2]),Integer.parseInt(birthdayStr[0]),Integer.parseInt(birthdayStr[1]));
+            Calendar minAdultAge = new GregorianCalendar();
+            minAdultAge.add(Calendar.YEAR, -18);
+            if (minAdultAge.before(userAge)) {
+                editTextBirthDate.setError("Minimum 18 required");
+                return false;
+            }
+            else {
+                editTextBirthDate.setError(null);
+                return true;
+            }
+        }
+        else{
+
+            editTextBirthDate.setError("birthday cannot be empty");
+            return false;
+        }
+    }
+
     private boolean isBloodTypeValid()
     {
         if(spinnerBloodType.getSelectedItemId() > 0)
@@ -268,7 +310,15 @@ public class RegisterActivity extends AppCompatActivity {
         person.setPersonId(key);
         users.child(key).setValue(person);
 
-        return true;
+        createAccount(person.getEmailId(),person.getPassword());
+        if(newUserRegistered)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -276,7 +326,6 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -311,17 +360,14 @@ public class RegisterActivity extends AppCompatActivity {
                             .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                             myCalendar.get(Calendar.DAY_OF_MONTH));
                     datePickerDialog.show();
-                    datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
+                    datePickerDialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
                 }
             }
         });
     }
 
-
-
-
     private void updateLabel() {
-        String myFormat = "MM/dd/yy"; //In which you need put here
+        String myFormat = "MM/dd/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         editTextBirthDate.setText(sdf.format(myCalendar.getTime()));
     }
@@ -349,26 +395,39 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }*/
 
-    /*auth.createUserWithEmailAndPassword(editTextEmail.getText().toString(), editTextPassword.getText().toString())
-                                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            // Sign in success, update UI with the signed-in user's information
-                                            Log.i("new user registered", "createUserWithEmail:success");
-                                            FirebaseUser user = auth.getCurrentUser();
-                                            updateUI(true);
-                                            //updateUI(user);
-                                        } else {
-                                            // If sign in fails, display a message to the user.
-                                            Log.i("error in registration", "createUserWithEmail:failure", task.getException());
-                                            Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                                    Toast.LENGTH_SHORT).show();
-                                            updateUI(false);
-                                            //updateUI(null);
-                                        }
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = auth.getCurrentUser();
+    }
 
-                                        // ...
-                                    }
-                                });*/
+    private void createAccount(String email, String password) {
+        final String TAG = "EmailPassword";
+        Log.d(TAG, "createAccount:" + email);
+
+        // [START create_user_with_email]
+        auth = FirebaseAuth.getInstance();
+
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            Toast.makeText(getApplicationContext(), "Successful",
+                                    Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = auth.getCurrentUser();
+                            updateUI(true);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
+        // [END create_user_with_email]
+    }
 }
