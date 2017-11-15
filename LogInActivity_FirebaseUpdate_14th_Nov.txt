@@ -1,0 +1,56 @@
+  public void addListenerOnLoginButton() {
+        logIn = (Button) findViewById(R.id.buttonLogin);
+        logIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isEmailValid()) {
+                    Log.i("Validation" ,"Tested");
+                    if (isPasswordValid()) {
+                        auth.signInWithEmailAndPassword(emailValidation, passwordValidation).addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                Toast.makeText(LogInActivity.this, "Log In successfull" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+
+                                if(!task.isSuccessful()) {
+                                    Toast.makeText(LogInActivity.this, "User is not present in the database" + task.getException(), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Intent intent = new Intent(getApplicationContext(),RegisterActivity.class);
+                                    startActivity(intent);
+                                }
+                            }
+                        });
+
+
+                    }
+
+
+                }
+
+
+            }
+        });
+    }
+
+    public void addListenerOnForgotPasswordButton() {
+        forgotPassword = (Button) findViewById(R.id.forgotPassword);
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void addListenerOnNotRegisteredButton() {
+        register = (Button) findViewById(R.id.buttonRegister);
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
