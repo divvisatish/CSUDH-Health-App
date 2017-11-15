@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,6 +47,7 @@ public class LogInActivity extends AppCompatActivity {
         inputPassword = (EditText) findViewById(R.id.editTextPassword);
 
         addListenerOnLoginButton();
+        Log.i("info", "Login screen loaded");
         addListenerOnRegisterButton();
     }
 
@@ -61,38 +63,29 @@ public class LogInActivity extends AppCompatActivity {
                 String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 
-                if(TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Field cannot be empty, Please enter valid email address.", Toast.LENGTH_SHORT).show();
-                    inputEmail.requestFocus();
-                    return;
-                }
-                else if(!email.contains("@csudh"))
+                if(!isEmailValid(email))
                 {
-                    Toast.makeText(getApplicationContext(), "Email Id is invalid, Please enter valid email address.", Toast.LENGTH_SHORT).show();
-                    inputEmail.requestFocus();
                     return;
                 }
                 else if(TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Field cannot be empty, Please enter valid password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
                     inputPassword.requestFocus();
                     return;
                 }
                 else if(password.length()<8)
                 {
-                    Toast.makeText(getApplicationContext(), "Please enter correct password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
                     inputPassword.requestFocus();
                     return;
                 }
                 else {
-                    boolean flag=false;
-                    if(flag) {
-                        auth.signInWithEmailAndPassword(email, password)
+                        /*auth.signInWithEmailAndPassword(email, password)
                                 .addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (!task.isSuccessful()) {
-                                            if (password.length() < 6) {
-                                                Toast.makeText(getApplicationContext(), "Please enter valid password", Toast.LENGTH_SHORT).show();
+                                            if (password.length() < 8) {
+                                                Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
                                             }
                                         } else {
                                             Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
@@ -100,16 +93,64 @@ public class LogInActivity extends AppCompatActivity {
                                             finish();
                                         }
                                     }
-                                });
-                    }
-                    else
-                    {
-                        Intent intent = new Intent(context, HomepageActivity.class);
-                        startActivity(intent);
-                    }
+                                });*/
+                        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+
+                                if(task.isSuccessful()) {
+                                    Toast.makeText(LogInActivity.this, "Log In successfull" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(context, HomepageActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(LogInActivity.this, "User is not present in the database" + task.getException(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                 }
             }
         });
+    }
+
+    private boolean isEmailValid(String email)
+    {
+        String alertMessage = "";
+        if(TextUtils.isEmpty(email)) {
+            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+            inputEmail.requestFocus();
+            return false;
+        }
+        else if(!email.contains("@"))
+        {
+            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+            inputEmail.requestFocus();
+            return false;
+        }
+        else if(!email.contains("csudh"))
+        {
+            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+            inputEmail.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isPasswordValid(String password)
+    {
+        String alertMessage = "";
+        if(TextUtils.isEmpty(password)) {
+            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+            inputPassword.requestFocus();
+            return false;
+        }
+        else if(password.length()<8)
+        {
+            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+            inputPassword.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     public void addListenerOnRegisterButton() {
@@ -120,7 +161,7 @@ public class LogInActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View arg0) {
-
+                Log.i("Button","BUtton pressed");
                 Intent intent = new Intent(context, RegisterActivity.class);
                 startActivity(intent);
             }
