@@ -79,21 +79,6 @@ public class LogInActivity extends AppCompatActivity {
                     return;
                 }
                 else {
-                        /*auth.signInWithEmailAndPassword(email, password)
-                                .addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (!task.isSuccessful()) {
-                                            if (password.length() < 8) {
-                                                Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
-                                            }
-                                        } else {
-                                            Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                    }
-                                });*/
                         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
