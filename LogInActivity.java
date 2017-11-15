@@ -1,17 +1,17 @@
 package com.csudh.healthapp.csudhhealthapp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.csudh.healthapp.csudhhealthapp.HomepageActivity;
 import com.csudh.healthapp.csudhhealthapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,6 +34,59 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
+        addListenerOnLoginButton();
+        addListenerOnForgotPasswordButton();
+        addListenerOnNotRegisteredButton();
+    }
+
+
+    public boolean isEmailValid() {
+
+        boolean emailCheck = true;
+        String emailValidation="";
+        email = (EditText) findViewById(R.id.editTextEmail);
+        emailValidation = email.getText().toString();
+
+        if(TextUtils.isEmpty(emailValidation)) {
+            email.setError("Email cannot be empty");
+            emailCheck = false;
+        } else if (!emailValidation.contains("@csudh.edu")) {
+            email.setError("Please enter valid email");
+            emailCheck = false;
+        }
+
+        return emailCheck;
+
+    }
+
+    public boolean isPasswordValid() {
+
+        boolean emailCheck = true;
+        String passwordValidation="";
+        password = (EditText) findViewById(R.id.editTextPassword);
+        passwordValidation = password.getText().toString();
+
+        if(TextUtils.isEmpty(passwordValidation)) {
+            password.setError("Please enter valid password");
+            emailCheck = false;
+        }
+
+        return emailCheck;
+    }
+
+    public void addListenerOnLoginButton() {
+        logIn = (Button) findViewById(R.id.buttonLogin);
+
+        logIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isEmailValid()) {
+                    Log.i("Validation" ,"Tested");
+                    if (isPasswordValid()) {
+                        Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
+                        startActivity(intent);
+                    }
+                }
 
         auth = FirebaseAuth.getInstance();
         if(auth.getCurrentUser() != null) {
@@ -112,18 +165,26 @@ public class LogInActivity extends AppCompatActivity {
         });
     }
 
-    public void addListenerOnRegisterButton() {
+    public void addListenerOnForgotPasswordButton() {
+        forgotPassword = (Button) findViewById(R.id.forgotPassword);
 
-        final Context context = this;
-        buttonRegister = (Button) findViewById(R.id.buttonRegister);
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View arg0) {
-
-                Intent intent = new Intent(context, RegisterActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
                 startActivity(intent);
             }
+        });
+    }
+
+    public void addListenerOnNotRegisteredButton() {
+        register = (Button) findViewById(R.id.buttonRegister);
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
+               }
         });
     }
 }
