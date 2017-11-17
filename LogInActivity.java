@@ -3,9 +3,11 @@ package com.csudh.healthapp.csudhhealthapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -45,9 +47,10 @@ public class LogInActivity extends AppCompatActivity {
 
         inputEmail = (EditText) findViewById(R.id.editTextEmail);
         inputPassword = (EditText) findViewById(R.id.editTextPassword);
+        register = (Button) findViewById(R.id.buttonRegister);
+        register.setPaintFlags(register.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         addListenerOnLoginButton();
-        Log.i("info", "Login screen loaded");
         addListenerOnRegisterButton();
     }
 
@@ -67,32 +70,22 @@ public class LogInActivity extends AppCompatActivity {
                 {
                     return;
                 }
-                else if(TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
-                    inputPassword.requestFocus();
-                    return;
-                }
-                else if(password.length()<8)
-                {
-                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
-                    inputPassword.requestFocus();
+                else if(!isPasswordValid(password)) {
                     return;
                 }
                 else {
-                        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-
-
-                                if(task.isSuccessful()) {
-                                    Toast.makeText(LogInActivity.this, "Log In successfull" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(context, HomepageActivity.class);
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(LogInActivity.this, "User is not present in the database" + task.getException(), Toast.LENGTH_SHORT).show();
-                                }
+                    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()) {
+                                Toast.makeText(LogInActivity.this, "Log In successful", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(context, HomepageActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(LogInActivity.this, "User is not registered in the system: " + task.getException(), Toast.LENGTH_SHORT).show();
                             }
-                        });
+                        }
+                    });
                 }
             }
         });
@@ -102,19 +95,19 @@ public class LogInActivity extends AppCompatActivity {
     {
         String alertMessage = "";
         if(TextUtils.isEmpty(email)) {
-            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+            inputEmail.setError("Email-ID cannot be empty");
             inputEmail.requestFocus();
             return false;
         }
         else if(!email.contains("@"))
         {
-            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+            inputEmail.setError("Please enter valid Email-ID");
             inputEmail.requestFocus();
             return false;
         }
-        else if(!email.contains("csudh"))
+        else if(!email.toLowerCase().contains("csudh") || !email.toLowerCase().contains(".edu"))
         {
-            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+            inputEmail.setError("Please enter valid csudh Email-ID");
             inputEmail.requestFocus();
             return false;
         }
@@ -125,13 +118,13 @@ public class LogInActivity extends AppCompatActivity {
     {
         String alertMessage = "";
         if(TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+            inputPassword.setError("Password cannot be empty");
             inputPassword.requestFocus();
             return false;
         }
         else if(password.length()<8)
         {
-            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+            inputPassword.setError("Invalid Password");
             inputPassword.requestFocus();
             return false;
         }
@@ -146,7 +139,6 @@ public class LogInActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View arg0) {
-                Log.i("Button","BUtton pressed");
                 Intent intent = new Intent(context, RegisterActivity.class);
                 startActivity(intent);
             }

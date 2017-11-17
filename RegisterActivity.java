@@ -83,9 +83,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean isRegistrationDetailsValid()
     {
-        boolean flag=true;
-        String alertMessage = "";
-
         try {
             if (isEmailValid(editTextEmail.getText().toString())) {
                 if (isPasswordValid(editTextPassword.getText().toString())) {
@@ -129,10 +126,8 @@ public class RegisterActivity extends AppCompatActivity {
         catch (Exception e)
         {
             e.printStackTrace();
+            return false;
         }
-
-
-        return flag;
     }
 
     private void updateUI(boolean flag)
@@ -152,19 +147,19 @@ public class RegisterActivity extends AppCompatActivity {
     {
         String alertMessage = "";
         if(TextUtils.isEmpty(email)) {
-            editTextEmail.setError("Email can not be empty");
+            editTextEmail.setError("Email-ID cannot be empty");
             editTextEmail.requestFocus();
             return false;
         }
         else if(!email.contains("@"))
         {
-            editTextEmail.setError("Enter valid e-mail Id");
+            editTextEmail.setError("Please enter valid Email-ID");
             editTextEmail.requestFocus();
             return false;
         }
-        else if(!email.contains("csudh"))
+        else if(!email.contains("csudh") || !email.toLowerCase().contains(".edu"))
         {
-            editTextEmail.setError("Enter valid csudh email id");
+            editTextEmail.setError("Please enter valid csudh Email-ID");
             editTextEmail.requestFocus();
             return false;
         }
@@ -175,20 +170,20 @@ public class RegisterActivity extends AppCompatActivity {
     {
         String alertMessage = "";
         if(TextUtils.isEmpty(password)) {
-            editTextPassword.setError("");
+            editTextPassword.setError("Password cannot be empty");
             editTextPassword.requestFocus();
             return false;
         }
         else if(password.length()<8)
         {
-            editTextPassword.setError("");
+            editTextPassword.setError("Minimum length 8 is required");
             editTextPassword.requestFocus();
             editTextPassword.setText("");
             return false;
         }
         else if(!isPasswordPatternFollowed(password))
         {
-            editTextPassword.setError("");
+            editTextPassword.setError("Invalid Password. Password must contain one upper-case, one lower-case, one numeric, and one special character");
             editTextPassword.requestFocus();
             editTextPassword.setText("");
             return false;
@@ -210,7 +205,7 @@ public class RegisterActivity extends AppCompatActivity {
     {
         if(confirmPassword.isEmpty())
         {
-            editTextConfirmPassword.setError("");
+            editTextConfirmPassword.setError("Confirm Password cannot be empty");
             editTextConfirmPassword.requestFocus();
             return false;
         }
@@ -220,7 +215,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else
         {
-            editTextConfirmPassword.setError("");
+            editTextConfirmPassword.setError("Password doesn't match");
             editTextConfirmPassword.requestFocus();
             editTextConfirmPassword.setText("");
             return false;
@@ -236,7 +231,7 @@ public class RegisterActivity extends AppCompatActivity {
             return true;
         }
         else {
-            editTextFirstName.setError("");
+            editTextFirstName.setError("Please enter valid First Name");
             editTextFirstName.requestFocus();
             return false;
         }
@@ -249,7 +244,7 @@ public class RegisterActivity extends AppCompatActivity {
             return true;
         }
         else {
-            editTextLastName.setError("");
+            editTextLastName.setError("Please enter valid Last Name");
             editTextLastName.requestFocus();
             return false;
         }
@@ -265,7 +260,7 @@ public class RegisterActivity extends AppCompatActivity {
             Calendar minAdultAge = new GregorianCalendar();
             minAdultAge.add(Calendar.YEAR, -18);
             if (minAdultAge.before(userAge)) {
-                editTextBirthDate.setError("Minimum 18 required");
+                editTextBirthDate.setError("Minimum age 18 is required");
                 return false;
             }
             else {
@@ -275,7 +270,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else{
 
-            editTextBirthDate.setError("birthday cannot be empty");
+            editTextBirthDate.setError("Birthday cannot be empty");
             return false;
         }
     }
@@ -287,7 +282,7 @@ public class RegisterActivity extends AppCompatActivity {
             return true;
         }
         else {
-            Toast.makeText(getApplicationContext(), "please select valid blood type", Toast.LENGTH_SHORT).show(); //enter valid password with one number, one special character
+            Toast.makeText(getApplicationContext(), "Please select valid Blood Type", Toast.LENGTH_SHORT).show(); //enter valid password with one number, one special character
             spinnerBloodType.requestFocus();
             return false;
         }

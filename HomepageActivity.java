@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.csudh.healthapp.csudhhealthapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static android.content.DialogInterface.BUTTON_NEUTRAL;
@@ -29,6 +31,7 @@ public class HomepageActivity extends AppCompatActivity {
 
     Button buttonBloodRequired;
     RadioGroup radioGroupRequestType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +58,14 @@ public class HomepageActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     private boolean isRequestTypeValid()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Please select one Option");
+        builder.setTitle("Please select request type");
         //builder.setMessage("Please select one Option");
         builder.setPositiveButton("OK", null);
         AlertDialog dialog = builder.create();
