@@ -8,16 +8,20 @@ import android.view.View;
 import android.widget.Button;
 
 import com.csudh.healthapp.csudhhealthapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AppMainActivity extends AppCompatActivity {
 
     Button buttonGetStarted;
+    private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_main);
 
         addListenerOnButton();
+        auth.getInstance().signOut();
     }
 
     public void addListenerOnButton() {
