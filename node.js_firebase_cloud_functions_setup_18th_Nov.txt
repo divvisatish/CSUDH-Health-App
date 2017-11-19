@@ -1,0 +1,16 @@
+1. Install Node.js along with npm
+
+2. Launch Node.js command prompt
+
+3. npm install -g firebase-tools
+
+4. npm install -g firebase-functions
+
+4. firebase login
+
+5. firebase list (to print out the list of projects) -- Not necessary
+
+6. firebase use --add "project-name"
+
+7. firebase deploy --only functions
+  
