@@ -8,58 +8,61 @@
     tools:context="com.csudh.healthapp.csudhhealthapp.NotificationActivity">
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editTextComments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSend"
+        android:layout_marginBottom="31dp"
+        android:layout_marginLeft="20dp"
+        android:cursorVisible="true"
         android:ems="10"
         android:hint="Comments"
         android:inputType="textMultiLine"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textColorHint="@android:color/background_light"
+        android:textCursorDrawable="@null"
         android:textSize="22sp"
-        android:layout_marginBottom="34dp"
-        android:layout_above="@+id/buttonRequest"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp" />
+        android:layout_alignRight="@+id/spinnerBloodTypeNotification"
+        android:layout_alignEnd="@+id/spinnerBloodTypeNotification" />
 
     <Button
-        android:id="@+id/buttonRequest"
-        android:layout_width="140dp"
+        android:id="@+id/buttonSend"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp"
         android:fontFamily="Arial"
         android:text="Send"
-        android:textSize="30sp"
+        android:textSize="28sp"
         android:layout_alignBaseline="@+id/buttonCancel"
         android:layout_alignBottom="@+id/buttonCancel"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2" />
+        android:layout_alignLeft="@+id/editTextComments"
+        android:layout_alignStart="@+id/editTextComments"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp" />
 
     <Button
         android:id="@+id/buttonCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="Arial"
-        android:paddingLeft="10dp"
-        android:text="Cancel"
-        android:textSize="30sp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginStart="25dp"
+        android:layout_alignEnd="@+id/editTextComments"
+        android:layout_alignRight="@+id/editTextComments"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/buttonRequest"
-        android:layout_toEndOf="@+id/buttonRequest"/>
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:fontFamily="Arial"
+        android:paddingLeft="15dp"
+        android:text="Cancel"
+        android:textSize="28sp" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spinnerBloodTypeNotification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/editTextComments"
         android:layout_marginBottom="25dp"
-        android:layout_above="@+id/editText2"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:entries="@array/spinnerItems"
-        android:theme="@style/spinnerTheme"/>
+        android:paddingRight="50dp"
+        android:theme="@style/spinnerTheme" />
 
 </android.widget.RelativeLayout>

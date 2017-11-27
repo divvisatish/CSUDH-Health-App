@@ -33,10 +33,18 @@ public class LogInActivity extends AppCompatActivity {
     private Button signIn, register;
     private FirebaseAuth auth;
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        resetScreen();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
+
 
         auth = FirebaseAuth.getInstance();
         if(auth.getCurrentUser() != null) {
@@ -49,6 +57,8 @@ public class LogInActivity extends AppCompatActivity {
         inputPassword = (EditText) findViewById(R.id.editTextPassword);
         register = (Button) findViewById(R.id.buttonRegister);
         register.setPaintFlags(register.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        resetScreen();
 
         addListenerOnLoginButton();
         addListenerOnRegisterButton();
@@ -126,6 +136,7 @@ public class LogInActivity extends AppCompatActivity {
         {
             inputPassword.setError("Invalid Password");
             inputPassword.requestFocus();
+            inputPassword.setText("");
             return false;
         }
         return true;
@@ -139,9 +150,16 @@ public class LogInActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View arg0) {
+                resetScreen();
                 Intent intent = new Intent(context, RegisterActivity.class);
                 startActivity(intent);
             }
         });
+    }
+
+    private void resetScreen()
+    {
+        inputPassword.setText("");
+        inputEmail.setText("");
     }
 }

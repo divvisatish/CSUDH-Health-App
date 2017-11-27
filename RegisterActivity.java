@@ -1,6 +1,7 @@
 package com.csudh.healthapp.csudhhealthapp;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,11 +19,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -42,9 +45,15 @@ public class RegisterActivity extends AppCompatActivity {
     DatabaseReference myRef = database.getReference();
     Calendar myCalendar = Calendar.getInstance();
     boolean newUserRegistered=false;
+    private String newUserUid = "";
     //DatabaseReference myChild = myRef.child("message");
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        resetScreen();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTextBirthDate = (EditText) findViewById(R.id.editTextBirthDate);
         spinnerBloodType = (Spinner) findViewById(R.id.spinnerBloodType);
         buttonRegisterNewUser = (Button) findViewById(R.id.buttonRegisterNewUser);
+        resetScreen();
         auth = FirebaseAuth.getInstance();
 
         addListenerOnRegisterNewUserButton();
@@ -67,11 +77,14 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void addListenerOnRegisterNewUserButton() {
+        final Context context = this;
         buttonRegisterNewUser.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
 
+                newUserRegistered = false;
+                newUserUid="";
                 if(isRegistrationDetailsValid()) {
 
                 }
@@ -92,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 if(isBirthDateValid(editTextBirthDate.getText().toString())) {
                                     if (isBloodTypeValid()) {
                                         if (registerNewUser()) {
-                                            return true;
+                                                return true;
                                         }
                                         else {
                                             return false;
@@ -130,16 +143,26 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void updateUI(boolean flag)
+    private void updateUI(boolean flag, String uid)
     {
-        if(flag) {
-            Intent intent = new Intent(this, LogInActivity.class);
-            startActivity(intent);
+        final Context context = this;
+        if(flag && !uid.isEmpty()) {
             newUserRegistered=true;
+            newUserUid = uid;
+
+            if(addUserInDatabase())
+            {
+                auth.signOut();
+                Intent intent = new Intent(context, LogInActivity.class);
+                startActivity(intent);
+            }
+
+
         }
         else
         {
             newUserRegistered=false;
+            newUserUid="";
         }
     }
 
@@ -290,27 +313,43 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean registerNewUser()
     {
-        DatabaseReference users = myRef.child("users");
+        String emailId = editTextEmail.getText().toString();
+        String password = editTextPassword.getText().toString();
 
-        Person person = new Person();
-        person.setEmailId(editTextEmail.getText().toString());
-        person.setFirstName(editTextFirstName.getText().toString());
-        person.setLastName(editTextLastName.getText().toString());
-        person.setPassword(editTextPassword.getText().toString());
-        person.setUserName(editTextEmail.getText().toString());
-        person.setBloodTypeName(spinnerBloodType.getSelectedItem().toString());//TODO add code for spinner
-        person.setBloodTypeId(Integer.valueOf(String.valueOf(spinnerBloodType.getSelectedItemId())));
+        createAccount(emailId, password);
 
-        String key = users.push().getKey();
-        person.setPersonId(key);
-        users.child(key).setValue(person);
-
-        createAccount(person.getEmailId(),person.getPassword());
-        if(newUserRegistered)
-        {
+        if(newUserRegistered && !newUserUid.isEmpty()) {
             return true;
         }
         else {
+            return false;
+        }
+
+    }
+
+    private boolean addUserInDatabase()
+    {
+        if (newUserRegistered && !newUserUid.isEmpty()) {
+            Person person = new Person();
+            person.setUid(newUserUid);
+            person.setEmailId(editTextEmail.getText().toString());
+            person.setFirstName(editTextFirstName.getText().toString());
+            person.setLastName(editTextLastName.getText().toString());
+            person.setUserName(editTextEmail.getText().toString());
+            person.setBloodTypeName(spinnerBloodType.getSelectedItem().toString());
+            person.setBloodTypeId(Integer.valueOf(String.valueOf(spinnerBloodType.getSelectedItemId())));
+            person.setDateOfBirth(editTextBirthDate.getText().toString());
+
+            String currentDateandTime = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").format(new Date());
+            person.setCrtDate(currentDateandTime);
+            person.setActiveFlag(1);
+
+            DatabaseReference users = myRef.child("users");
+            String key = users.push().getKey();
+            person.setPersonId(key);
+            users.child(key).setValue(person);
+            return true;
+        } else {
             return false;
         }
 
@@ -395,6 +434,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = auth.getCurrentUser();
+
     }
 
     private void createAccount(String email, String password) {
@@ -410,19 +450,39 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            Toast.makeText(getApplicationContext(), "Successful",
+                            Toast.makeText(getApplicationContext(), "Registration Successful",
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = auth.getCurrentUser();
-                            updateUI(true);
+                            updateUI(true, user.getUid());
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-
+                            if(task.getException() instanceof FirebaseAuthUserCollisionException)
+                            {
+                                Log.w(TAG, "createUserWithEmail: user already exist", task.getException());
+                                Toast.makeText(getApplicationContext(), "User already exist",
+                                        Toast.LENGTH_SHORT).show();
+                                newUserUid="";
+                            }
+                            else {
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(getApplicationContext(), "Registration failed",
+                                        Toast.LENGTH_SHORT).show();
+                                newUserUid="";
+                            }
                         }
                     }
                 });
         // [END create_user_with_email]
     }
+
+    private void resetScreen()
+    {
+        editTextBirthDate.setText("");
+        editTextPassword.setText("");
+        editTextEmail.setText("");
+        editTextConfirmPassword.setText("");
+        editTextFirstName.setText("");
+        editTextLastName.setText("");
+        spinnerBloodType.setSelection(0);
+    }
+
 }

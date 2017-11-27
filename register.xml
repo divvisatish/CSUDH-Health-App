@@ -17,30 +17,30 @@ tools:context="com.csudh.healthapp.csudhhealthapp.RegisterActivity">
         android:layout_marginLeft="19dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="22dp"
+        android:cursorVisible="true"
         android:hint="Enter your Email*"
         android:inputType="textEmailAddress"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textColorHint="@android:color/background_light"
+        android:textCursorDrawable="@null"
         android:textSize="22sp"
-        tools:ignore="HardcodedText,RtlHardcoded,UnusedAttribute"
-        android:cursorVisible="true"
-        android:textCursorDrawable="@null"/>
+        tools:ignore="HardcodedText,RtlHardcoded,UnusedAttribute" />
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your Password*"
-        android:inputType="textPassword"
-        android:textColorHint="@android:color/background_light"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        android:textSize="22sp"
-        tools:ignore="HardcodedText,RtlHardcoded"
-        android:layout_below="@+id/editTextEmail"
         android:layout_alignLeft="@+id/editTextEmail"
         android:layout_alignStart="@+id/editTextEmail"
+        android:layout_below="@+id/editTextEmail"
         android:cursorVisible="true"
-        android:textCursorDrawable="@null"/>
+        android:hint="Enter your Password*"
+        android:inputType="textPassword"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColorHint="@android:color/background_light"
+        android:textCursorDrawable="@null"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText,RtlHardcoded" />
 
     <EditText
         android:id="@+id/editTextConfirmPassword"
