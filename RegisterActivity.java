@@ -347,7 +347,7 @@ public class RegisterActivity extends AppCompatActivity {
             DatabaseReference users = myRef.child("users");
             String key = users.push().getKey();
             person.setPersonId(key);
-            users.child(key).setValue(person);
+            users.child(newUserUid).setValue(person);
             return true;
         } else {
             return false;
