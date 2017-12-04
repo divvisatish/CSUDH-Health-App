@@ -6,6 +6,7 @@
     <string name="password_label">Enter your password</string>
     <string name="forgot_password_label">Forgot password?</string>
     <string name="not_registered_label">Not registered?</string>
+    <string name="requestTypeAlert">Please select request type</string>
     <!--Field cannot be empty, Please enter valid email address-->
     <!--Email Id is invalid, Please enter valid email address.-->
     <!--Please enter valid csudh email address.-->

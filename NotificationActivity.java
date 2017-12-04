@@ -15,7 +15,13 @@ import android.widget.Toast;
 import com.csudh.healthapp.csudhhealthapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -41,6 +47,7 @@ public class NotificationActivity extends AppCompatActivity {
     int bloodTypeOMinus = 8;
     int bloodTypeABMinus = 6;
     int bloodTypeHH = 9;
+    private DatabaseReference root,users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +55,32 @@ public class NotificationActivity extends AppCompatActivity {
         setContentView(R.layout.notification);
 
         auth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if(currentUser!=null)
+        if(auth!=null)
         {
-            //loggedInPerson =
+            FirebaseUser firebaseUser = auth.getCurrentUser();
+
+            if(firebaseUser!=null)
+            {
+                root = FirebaseDatabase.getInstance().getReference();
+                users = root.child("users");
+
+                users.child(firebaseUser.getUid())
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+                                loggedInPerson = snapshot.getValue(Person.class);
+                                Toast.makeText(getApplicationContext(), "Hi, " + loggedInPerson.getFirstName(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
+                        });
+            }
         }
         editTextComments = (EditText) findViewById(R.id.editTextComments);
         spinnerBloodTypeNotification = (Spinner) findViewById(R.id.spinnerBloodTypeNotification);
@@ -94,12 +123,17 @@ public class NotificationActivity extends AppCompatActivity {
 
                 if(isNotificationDetailsValid()) {
                     NotificationVO notificationVO = prepareNotificationVO();
+                    Toast.makeText(getApplicationContext(), "Notification VO, " +  notificationVO.getBloodTypeName(),
+                            Toast.LENGTH_SHORT).show();
                     if(notificationVO!=null && loggedInPerson!=null)
                     {
                         NotificationVO[] currentNotificationVO = new NotificationVO[1];
                         currentNotificationVO[0] = new NotificationVO();
                         currentNotificationVO[0] = notificationVO;
-                        loggedInPerson.setNotificationVO(currentNotificationVO);
+                        loggedInPerson.setNotificationVOArr(currentNotificationVO);
+
+                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("csudh-health-app");
+                        dbRef.child("token").setValue(FirebaseInstanceId.getInstance().getToken());
                     }
 
                     Intent intent = new Intent(context, HomepageActivity.class);

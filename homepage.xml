@@ -11,31 +11,24 @@
         android:id="@+id/textViewWelcomeMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="5sp"
+        android:layout_marginLeft="10sp"
         android:layout_marginTop="20dp"
         android:text=""
         android:textColor="#FFFFFF"
         android:textSize="21sp"
-        android:textStyle="bold"
-        android:layout_alignRight="@+id/imageView"
-        android:layout_alignEnd="@+id/imageView" />
+        android:textStyle="bold"/>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/radioButtonVeryUrgent"
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart1"
+        android:layout_width="400sp"
+        android:layout_height="350sp"
         android:layout_alignLeft="@+id/radioButtonImmediate"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/radioButtonVeryUrgent"
-        android:layout_alignStart="@+id/radioButtonImmediate"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="10sp"
         android:layout_marginRight="10sp"
-        android:layout_marginTop="70dp"
-        app:srcCompat="@drawable/piechart" />
+        android:layout_marginTop="70dp"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -43,7 +36,7 @@
         android:layout_height="60sp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/chart1"
         android:layout_marginTop="15sp"
         android:orientation="horizontal">
 
