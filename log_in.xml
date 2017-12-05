@@ -1,107 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
+    android:fitsSystemWindows="true"
     tools:context="com.csudh.healthapp.csudhhealthapp.LogInActivity">
 
-    <EditText
-        android:id="@+id/editTextEmail"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="60dp"
-        android:ems="10"
-        android:hint="Enter your Email"
-        android:imeOptions="actionNext"
-        android:inputType="textEmailAddress"
-        android:textColor='#FFFFFF'
-        android:textColorHint="@android:color/background_light"
-        android:textCursorDrawable="@null"
-        android:textSize="22sp" />
+        android:orientation="vertical"
+        android:paddingBottom="24dp"
+        android:paddingTop="20dp"
+        android:layout_gravity="center_horizontal">
 
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editTextEmail"
-        android:layout_alignStart="@+id/editTextEmail"
-        android:layout_below="@+id/editTextEmail"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="Enter your Password"
-        android:imeOptions="actionNext"
-        android:inputType="textPassword"
-        android:textColor="#FFFFFF"
-        android:textColorHint="@android:color/background_light"
-        android:textCursorDrawable="@null"
-        android:textSize="22sp" />
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="246dp"
+            android:layout_height="146dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/csudhhealthlogo" />
 
-    <Button
-        android:id="@+id/buttonLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="29dp"
-        android:text="Log In"
-        android:textSize="28sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp">
 
-    <Button
-        android:id="@+id/buttonRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonLogin"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="50dp"
-        android:layout_toEndOf="@+id/myRegisteredView"
-        android:layout_toRightOf="@+id/myRegisteredView"
-        android:background="@null"
-        android:text="Click Here"
-        android:textAllCaps="false"
-        android:textColor="@android:color/background_light"
-        android:textSize="21sp"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/emailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:text="@string/emailLabel"
+                android:textColor="@color/colorPrimary"
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/forgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/editTextPassword"
-        android:layout_alignRight="@+id/editTextPassword"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="20dp"
-        android:background="@null"
-        android:text="Forgot Password?"
-        android:textAllCaps="false"
-        android:textColor="@android:color/background_light"
-        android:textSize="21sp"
-        android:textStyle="bold" />
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/edittextborder"
+                android:ems="10"
+                android:hint="abc@csudh.edu"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textCursorDrawable="@null"
+                android:textSize="22sp" />
+        </RelativeLayout>
 
-    <TextView
-        android:id="@+id/myRegisteredView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonRegister"
-        android:layout_alignBottom="@+id/buttonRegister"
-        android:layout_alignLeft="@+id/editTextPassword"
-        android:layout_alignStart="@+id/editTextPassword"
-        android:layout_marginLeft="34dp"
-        android:layout_marginRight="34dp"
-        android:layout_marginStart="34dp"
-        android:text="Not Registered?"
-        android:textColor="#FFFFFF"
-        android:textSize="21sp"
-        android:textStyle="bold" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</android.widget.RelativeLayout>
+            <TextView
+                android:id="@+id/passwordLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/passwordLabel"
+                android:textColor="@color/colorPrimary"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="35dp"
+                android:ems="10"
+                android:hint="@string/passwordHint"
+                android:background="@drawable/edittextborder"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textCursorDrawable="@null"
+                android:textSize="22sp" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="15dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/logInLabel"
+            android:textColor="@color/colorAccent"
+            android:textSize="27sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="phone"
+            android:linksClickable="true"
+            android:text="@string/forgotPassword"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorPrimary"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/myRegisteredView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="70dp"
+                android:text="@string/notRegistered"
+                android:textColor="@color/colorPrimary"
+                android:textSize="21sp" />
+
+            <Button
+                android:id="@+id/buttonRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:background="@null"
+                android:text="@string/clickHere"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:layout_alignBaseline="@+id/myRegisteredView"
+                android:layout_alignBottom="@+id/myRegisteredView"
+                android:layout_toRightOf="@+id/myRegisteredView"
+                android:layout_toEndOf="@+id/myRegisteredView" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

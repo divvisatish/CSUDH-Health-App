@@ -1,19 +1,15 @@
 <resources>
-    <string name="app_name">CSUDH Health App</string>
-    <string name="get_started">GET STARTED</string>
-    <string name="landing_title">Welcome to CSUDH Health Platform</string>
-    <string name="email_label">Enter your Email</string>
-    <string name="password_label">Enter your password</string>
-    <string name="forgot_password_label">Forgot password?</string>
-    <string name="not_registered_label">Not registered?</string>
-    <string name="requestTypeAlert">Please select request type</string>
-    <!--Field cannot be empty, Please enter valid email address-->
-    <!--Email Id is invalid, Please enter valid email address.-->
-    <!--Please enter valid csudh email address.-->
-    <!--Field cannot be empty, Please enter valid password-->
-    <!--Please enter correct password-->
-    <!--Please enter valid password-->
-    <!--enter valid password with one number, one special character,one upper case and one lower case-->
-
+    <string name="app_name">CSUDH Health Platform</string>
+    <string name="emailLabel">Email:</string>
+    <string name="passwordLabel">Password:</string>
+    <string name="emailHint">abc@csudh.edu</string>
+    <string name="passwordHint">Abc@1234</string>
+    <string name="logInLabel">Log In</string>
+    <string name="forgotPassword">Forgot Password?</string>
+    <string name="notRegistered">Not Registered?</string>
+    <string name="clickHere">Click Here</string>
+    <string name="getStartedTitle1">Welcome to</string>
+    <string name="getStartedTitle2">CSUDH Health Platform</string>
+    <string name="getStartedbutton">Get Started</string>
 
 </resources>
