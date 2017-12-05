@@ -3,6 +3,10 @@ package com.csudh.healthapp.csudhhealthapp;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -68,6 +72,17 @@ public class RegisterActivity extends AppCompatActivity {
         editTextBirthDate = (EditText) findViewById(R.id.editTextBirthDate);
         spinnerBloodType = (Spinner) findViewById(R.id.spinnerBloodType);
         buttonRegisterNewUser = (Button) findViewById(R.id.buttonRegisterNewUser);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.logo); //Converting drawable into bitmap
+        ResizeBitmapImage resizeBitmapImage = new ResizeBitmapImage();
+        Bitmap new_icon = resizeBitmapImage.resizeBitmapImageFn(icon, 150); //resizing the bitmap
+        Drawable d = new BitmapDrawable(getResources(),new_icon); //Converting bitmap into drawable
+
+        getSupportActionBar().setLogo(d);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setTitle("");
+
         resetScreen();
         auth = FirebaseAuth.getInstance();
 

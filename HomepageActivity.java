@@ -1,25 +1,21 @@
 package com.csudh.healthapp.csudhhealthapp;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.csudh.healthapp.csudhhealthapp.R;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -27,7 +23,6 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,7 +33,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -87,6 +81,18 @@ public class HomepageActivity extends AppCompatActivity {
         radioGroupRequestType = (RadioGroup)findViewById(R.id.radioGroupRequestType);
         textViewWelcomeMessage = (TextView) findViewById(R.id.textViewWelcomeMessage);
         pieChart = (PieChart) findViewById(R.id.chart1);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.logo); //Converting drawable into bitmap
+        ResizeBitmapImage resizeBitmapImage = new ResizeBitmapImage();
+        Bitmap new_icon = resizeBitmapImage.resizeBitmapImageFn(icon, 150); //resizing the bitmap
+        Drawable d = new BitmapDrawable(getResources(),new_icon); //Converting bitmap into drawable
+
+        getSupportActionBar().setLogo(d);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setTitle("");
+
+
         auth = FirebaseAuth.getInstance();
 
         if(auth!=null)
@@ -322,4 +328,6 @@ public class HomepageActivity extends AppCompatActivity {
         }
 
     }
+
+
 }

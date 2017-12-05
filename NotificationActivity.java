@@ -2,6 +2,10 @@ package com.csudh.healthapp.csudhhealthapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -12,14 +16,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.csudh.healthapp.csudhhealthapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -53,6 +55,16 @@ public class NotificationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notification);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.logo); //Converting drawable into bitmap
+        ResizeBitmapImage resizeBitmapImage = new ResizeBitmapImage();
+        Bitmap new_icon = resizeBitmapImage.resizeBitmapImageFn(icon, 150); //resizing the bitmap
+        Drawable d = new BitmapDrawable(getResources(),new_icon); //Converting bitmap into drawable
+
+        getSupportActionBar().setLogo(d);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setTitle("");
 
         auth = FirebaseAuth.getInstance();
         if(auth!=null)
