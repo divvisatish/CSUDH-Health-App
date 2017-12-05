@@ -1,5 +1,7 @@
 package com.csudh.healthapp.csudhhealthapp;
 
+import java.util.Map;
+
 /**
  * Created by Darshit on 11/11/2017.
  */
@@ -13,7 +15,7 @@ public class Person {
     private String emailId;
     private String bloodTypeName;
     private int bloodTypeId;
-    private NotificationVO[] notificationVO;
+    private NotificationVO[] notificationVOArr;
     private int activeFlag;
     private String crtDate;
     private String lstUpdtDate;
@@ -60,12 +62,12 @@ public class Person {
         this.activeFlag = activeFlag;
     }
 
-    public NotificationVO[] getNotificationVO() {
-        return notificationVO;
+    public NotificationVO[] getNotificationVOArr() {
+        return notificationVOArr;
     }
 
-    public void setNotificationVO(NotificationVO[] notificationVO) {
-        this.notificationVO = notificationVO;
+    public void setNotificationVOArr(NotificationVO[] notificationVOArr) {
+        this.notificationVOArr = notificationVOArr;
     }
 
     public int getBloodTypeId() {
@@ -122,5 +124,25 @@ public class Person {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public Person(Map<String, Map> map)
+    {
+        this.firstName = map.get("firstName").toString();
+        /*this.setLastName(map.get("lastName").toString());
+        this.setBloodTypeName(map.get("bloodTypeName").toString());
+        this.setUserName(map.get("userName").toString());
+        this.setPersonId(map.get("personId").toString());
+        this.setEmailId(map.get("emailId").toString());
+        this.setCrtDate(map.get("crtDate").toString());
+        this.setDateOfBirth(map.get("dateOfBirth").toString());
+        this.setUid(map.get("uid").toString());
+        this.setActiveFlag(Integer.parseInt(map.get("activeFlag").toString()));
+        this.setBloodTypeId(Integer.parseInt(map.get("bloodTypeId").toString()));*/
+        //this.setNotificationVO(map.get("notificationVO")) ;
+    }
+
+    public Person(){
+
     }
 }
