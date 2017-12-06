@@ -6,3 +6,6 @@
 	-- Please place this file in drawable folder so that design can reflect against edit text fields in log in page and future screens
 	   to be modified.
 4. strings, styles, colors - Please place these files as it is in the layout folder.
+5. homepage - All the requested updates have been done. Please place the file in the desired folder.
+6. register: All the requested updates have been done. Please plae the file in the desired folder. And upon this please place
+the "backgroundimage.xml" and 'csudhbackground.png" in the drawable folder.

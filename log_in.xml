@@ -51,11 +51,11 @@
                 android:layout_marginTop="25dp"
                 android:background="@drawable/edittextborder"
                 android:ems="10"
-                android:hint="abc@csudh.edu"
+                android:hint="@string/emailHint"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorPrimary"
+                android:textColorHint="@color/loginHintColor"
                 android:textCursorDrawable="@null"
                 android:textSize="22sp" />
         </RelativeLayout>
@@ -64,17 +64,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/passwordLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/passwordLabel"
-                android:textColor="@color/colorPrimary"
-                android:textSize="21sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/passwordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/passwordLabel"
+            android:textColor="@color/colorPrimary"
+            android:textSize="21sp"
+            android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextPassword"
@@ -92,14 +92,14 @@
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
                 android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorPrimary"
+                android:textColorHint="@color/loginHintColor"
                 android:textCursorDrawable="@null"
                 android:textSize="22sp" />
 
         </RelativeLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonLogin"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

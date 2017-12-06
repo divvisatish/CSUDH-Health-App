@@ -1,60 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
+    android:orientation="vertical"
     tools:context="com.csudh.healthapp.csudhhealthapp.HomepageActivity">
 
-    <TextView
-        android:id="@+id/textViewWelcomeMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10sp"
-        android:layout_marginTop="20dp"
-        android:text=""
-        android:textColor="#FFFFFF"
-        android:textSize="21sp"
-        android:textStyle="bold"/>
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/chart1"
-        android:layout_width="400sp"
-        android:layout_height="350sp"
-        android:layout_alignLeft="@+id/radioButtonImmediate"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:layout_marginTop="70dp"/>
-
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="60sp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/chart1"
-        android:layout_marginTop="15sp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewWelcomeMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textColor="@color/homepageusertitle"
+            android:textSize="21sp"
+            android:textStyle="bold"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp">
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart1"
+            android:layout_width="400sp"
+            android:background="@color/colorPrimary"
+            android:layout_height="350sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="5dp"/>
+        </RelativeLayout>
 
         <RadioGroup
             android:id="@+id/radioGroupRequestType"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="5dp">
 
             <RadioButton
                 android:id="@+id/radioButtonImmediate"
                 android:layout_width="120sp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
-                android:buttonTint="@color/common_google_signin_btn_text_dark_default"
-                android:text="Immediate"
-                android:textColor="@android:color/background_light"
-                android:textSize="17sp"
+                android:layout_marginLeft="10dp"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/immediate"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <RadioButton
@@ -62,10 +63,10 @@
                 android:layout_width="130sp"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/radioButtonImmediate"
-                android:buttonTint="@color/common_google_signin_btn_text_dark_default"
-                android:text="Within a day"
-                android:textColor="@android:color/background_light"
-                android:textSize="17sp"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/withinaday"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <RadioButton
@@ -73,23 +74,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50sp"
                 android:layout_toRightOf="@+id/radioButtonWithinADay"
-                android:buttonTint="@color/common_google_signin_btn_text_dark_default"
-                android:text="Very Urgent"
-                android:textColor="@android:color/background_light"
-                android:textSize="17sp"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/veryUrgent"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
                 android:textStyle="bold" />
         </RadioGroup>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+            <Button
+                android:id="@+id/buttonBloodRequired"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="14dp"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
+                android:fontFamily="Arial"
+                android:text="@string/requestButton"
+                android:textSize="27sp" />
+        </RelativeLayout>
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonBloodRequired"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14sp"
-        android:fontFamily="Arial"
-        android:text="Request"
-        android:textSize="30sp" />
-</android.widget.RelativeLayout>
+
+</LinearLayout>

@@ -11,5 +11,15 @@
     <string name="getStartedTitle1">Welcome to</string>
     <string name="getStartedTitle2">CSUDH Health Platform</string>
     <string name="getStartedbutton">Get Started</string>
-
+    <string name="register">Register</string>
+    <string name="birthDateLabel">Birth Date (MM/DD/YYYY)</string>
+    <string name="firstNameLabel">Enter Your First Name</string>
+    <string name="lastNameLabel">Enter Your Last Name</string>
+    <string name="registerEmail">Enter Your Email</string>
+    <string name="registerPassword">Enter Your Password</string>
+    <string name="confirmYourPasswordLabel">Confirm Your Password</string>
+    <string name="requestButton">Request</string>
+    <string name="veryUrgent">Very Urgent</string>
+    <string name="withinaday">Within a day</string>
+    <string name="immediate">Immediate</string>
 </resources>

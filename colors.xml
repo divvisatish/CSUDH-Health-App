@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#802040</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#BAADAD</color>
     <color name="colorAccent">#CEC4C4</color>
+    <color name="colorRegisterScreen">#FFF6F6</color>
+    <color name="loginHintColor">#BF889A</color>
+    <color name="homepageusertitle">#FFFFFF</color>
 </resources>
