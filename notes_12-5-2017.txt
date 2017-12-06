@@ -1,11 +1,2 @@
-1. app_main (Get Started Page)
-	-- kept csudhhealthlogo.png file. Please place this in the drawable folder to avoid any issues.
-2. log_in (Log In Page) 
-	-- if you followed notes for point-1 then we are good here, no extra effort needed.
-3. edittextborder.xml (design for edittext)
-	-- Please place this file in drawable folder so that design can reflect against edit text fields in log in page and future screens
-	   to be modified.
-4. strings, styles, colors - Please place these files as it is in the layout folder.
-5. homepage - All the requested updates have been done. Please place the file in the desired folder.
-6. register: All the requested updates have been done. Please plae the file in the desired folder. And upon this please place
-the "backgroundimage.xml" and 'csudhbackground.png" in the drawable folder.
+1. notifications - requested updates have been implemented. Please place the file in the desired folder.
+2. strings - added values for notification page. Please place this latest file in values folder.

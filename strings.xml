@@ -22,4 +22,6 @@
     <string name="veryUrgent">Very Urgent</string>
     <string name="withinaday">Within a day</string>
     <string name="immediate">Immediate</string>
+    <string name="notificationSend">Send</string>
+    <string name="notificationCancel">Cancel</string>
 </resources>
