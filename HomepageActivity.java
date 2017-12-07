@@ -14,9 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarEntry;
@@ -193,8 +195,12 @@ public class HomepageActivity extends AppCompatActivity {
         }
     }
 
-    public void addListenerOnBloodRequiredButton() {
+    @Override
+    public void onBackPressed(){
+        logout();
+    }
 
+    public void addListenerOnBloodRequiredButton() {
         final boolean flag=true;
         buttonBloodRequired = (Button) findViewById(R.id.buttonBloodRequired);
 
@@ -204,6 +210,11 @@ public class HomepageActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 if(isRequestTypeValid()) {
                     Intent intent = new Intent(getApplicationContext(), com.csudh.healthapp.csudhhealthapp.NotificationActivity.class);
+                    RadioButton radioButton = (RadioButton) findViewById(radioGroupRequestType.getCheckedRadioButtonId());
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("requestTypeId", radioGroupRequestType.getCheckedRadioButtonId());
+                    bundle.putString("requestTypeName",radioButton.getText().toString());
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 }
 
@@ -321,10 +332,11 @@ public class HomepageActivity extends AppCompatActivity {
             Paint p = pieChart.getPaint(pieChart.PAINT_DESCRIPTION);
             p.setColor(Color.WHITE);
             pieChart.setDescription("");
+            pieChart.setNoDataText("click here");
+
             Legend legend = pieChart.getLegend();
             legend.setEnabled(false);
             legend.setTextColor(Color.WHITE);
-            //pieChart.animateY(3000);
         }
 
     }

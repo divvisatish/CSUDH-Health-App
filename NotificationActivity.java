@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -50,6 +51,9 @@ public class NotificationActivity extends AppCompatActivity {
     int bloodTypeABMinus = 6;
     int bloodTypeHH = 9;
     private DatabaseReference root,users;
+    String requestTypeName;
+    String notificationKeys;
+    int requestTypeId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,10 @@ public class NotificationActivity extends AppCompatActivity {
         ResizeBitmapImage resizeBitmapImage = new ResizeBitmapImage();
         Bitmap new_icon = resizeBitmapImage.resizeBitmapImageFn(icon, 150); //resizing the bitmap
         Drawable d = new BitmapDrawable(getResources(),new_icon); //Converting bitmap into drawable
+
+        Bundle bundle = getIntent().getExtras();
+        requestTypeId = bundle.getInt("requestTypeId");
+        requestTypeName =  bundle.getString("requestTypeName"); //getIntent().getStringExtra("requestTypeName");
 
         getSupportActionBar().setLogo(d);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -82,8 +90,7 @@ public class NotificationActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot snapshot) {
                                 loggedInPerson = snapshot.getValue(Person.class);
-                                Toast.makeText(getApplicationContext(), "Hi, " + loggedInPerson.getFirstName(),
-                                        Toast.LENGTH_SHORT).show();
+                                notificationKeys = loggedInPerson.getNotificationKeys();
                             }
 
                             @Override
@@ -121,6 +128,8 @@ public class NotificationActivity extends AppCompatActivity {
             auth.signOut();
             Intent intent = new Intent(getApplicationContext(), com.csudh.healthapp.csudhhealthapp.LogInActivity.class);
             startActivity(intent);
+            onBackPressed();
+            finish();
         }
     }
 
@@ -135,17 +144,23 @@ public class NotificationActivity extends AppCompatActivity {
 
                 if(isNotificationDetailsValid()) {
                     NotificationVO notificationVO = prepareNotificationVO();
-                    Toast.makeText(getApplicationContext(), "Notification VO, " +  notificationVO.getBloodTypeName(),
-                            Toast.LENGTH_SHORT).show();
                     if(notificationVO!=null && loggedInPerson!=null)
                     {
-                        NotificationVO[] currentNotificationVO = new NotificationVO[1];
-                        currentNotificationVO[0] = new NotificationVO();
-                        currentNotificationVO[0] = notificationVO;
-                        loggedInPerson.setNotificationVOArr(currentNotificationVO);
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = database.getReference();
+                        DatabaseReference notificationDetails = myRef.child("notificationDetails").child(auth.getCurrentUser().getUid());
+                        String key = notificationDetails.push().getKey();
+                        notificationDetails.child(key).setValue(notificationVO);
 
+                        if(notificationKeys!=null){
+                            notificationKeys = notificationKeys + "," + key;
+                        }
+
+                        myRef.child("users").child(auth.getCurrentUser().getUid()).child("notificationKeys").setValue(notificationKeys);
+                        //for notification - start
                         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("csudh-health-app");
                         dbRef.child("token").setValue(FirebaseInstanceId.getInstance().getToken());
+                        //for notification - end
                     }
 
                     Intent intent = new Intent(context, HomepageActivity.class);
@@ -177,7 +192,10 @@ public class NotificationActivity extends AppCompatActivity {
         notificationVO.setComments(editTextComments.getText().toString());
         notificationVO.setBloodTypeName(spinnerBloodTypeNotification.getSelectedItem().toString());
         notificationVO.setActiveFlag(1);
-        notificationVO.setCrtDate(DateFormat.getDateTimeInstance().format(new Date()));
+        String currentDateAndTime = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").format(new Date());
+        notificationVO.setCrtDate(currentDateAndTime);
+        notificationVO.setRequestTypeId(requestTypeId);
+        notificationVO.setRequestTypeName(requestTypeName);
 
         return notificationVO;
     }

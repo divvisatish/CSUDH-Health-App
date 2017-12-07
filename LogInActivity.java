@@ -36,8 +36,9 @@ public class LogInActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         resetScreen();
+        Intent intent = new Intent(getApplicationContext(), AppMainActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -63,6 +64,8 @@ public class LogInActivity extends AppCompatActivity {
         addListenerOnLoginButton();
         addListenerOnRegisterButton();
     }
+
+
 
     public void addListenerOnLoginButton() {
 

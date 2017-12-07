@@ -15,12 +15,20 @@ public class Person {
     private String emailId;
     private String bloodTypeName;
     private int bloodTypeId;
-    private NotificationVO[] notificationVOArr;
+    private String notificationKeys;
     private int activeFlag;
     private String crtDate;
     private String lstUpdtDate;
     private String dateOfBirth;
     private String uid;
+
+    public String getNotificationKeys() {
+        return notificationKeys;
+    }
+
+    public void setNotificationKeys(String notificationKeys) {
+        this.notificationKeys = notificationKeys;
+    }
 
     public String getUid() {
         return uid;
@@ -60,14 +68,6 @@ public class Person {
 
     public void setActiveFlag(int activeFlag) {
         this.activeFlag = activeFlag;
-    }
-
-    public NotificationVO[] getNotificationVOArr() {
-        return notificationVOArr;
-    }
-
-    public void setNotificationVOArr(NotificationVO[] notificationVOArr) {
-        this.notificationVOArr = notificationVOArr;
     }
 
     public int getBloodTypeId() {

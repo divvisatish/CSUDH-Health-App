@@ -10,8 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -41,6 +41,7 @@
                 android:textSize="22sp"
                 tools:ignore="HardcodedText,RtlHardcoded,UnusedAttribute" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,17 +51,17 @@
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="19dp"
+                android:background="@drawable/edittextborder"
                 android:cursorVisible="true"
                 android:hint="@string/registerPassword"
                 android:inputType="textPassword"
-                android:background="@drawable/edittextborder"
-                android:textColorHint="@color/colorRegisterScreen"
                 android:textColor="@color/colorPrimary"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="19dp"
+                android:textColorHint="@color/colorRegisterScreen"
                 android:textCursorDrawable="@null"
                 android:textSize="22sp"
                 tools:ignore="HardcodedText,RtlHardcoded" />
@@ -77,21 +78,21 @@
                 android:id="@+id/editTextConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="19dp"
+                android:background="@drawable/edittextborder"
+                android:cursorVisible="true"
                 android:ems="10"
                 android:hint="@string/confirmYourPasswordLabel"
                 android:inputType="textPassword"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
-                android:textColorHint="@color/colorRegisterScreen"
                 android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorRegisterScreen"
+                android:textCursorDrawable="@null"
                 android:textSize="22sp"
-                android:layout_marginTop="19dp"
-                android:background="@drawable/edittextborder"
-                tools:ignore="HardcodedText"
-                android:cursorVisible="true"
-                android:textCursorDrawable="@null"/>
+                tools:ignore="HardcodedText" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -104,21 +105,21 @@
                 android:id="@+id/editTextFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="19dp"
+                android:background="@drawable/edittextborder"
+                android:cursorVisible="true"
                 android:ems="10"
                 android:hint="@string/firstNameLabel"
                 android:inputType="textPersonName"
-                android:textColorHint="@color/colorRegisterScreen"
                 android:textColor="@color/colorPrimary"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="19dp"
+                android:textColorHint="@color/colorRegisterScreen"
+                android:textCursorDrawable="@null"
                 android:textSize="22sp"
-                tools:ignore="HardcodedText"
-                android:background="@drawable/edittextborder"
-                android:cursorVisible="true"
-                android:textCursorDrawable="@null"/>
+                tools:ignore="HardcodedText" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -130,23 +131,24 @@
                 android:id="@+id/editTextLastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="19dp"
+                android:background="@drawable/edittextborder"
+                android:cursorVisible="true"
                 android:ems="10"
                 android:hint="@string/lastNameLabel"
                 android:inputType="textPersonName"
-                android:textColorHint="@color/colorRegisterScreen"
                 android:textColor="@color/colorPrimary"
-                android:background="@drawable/edittextborder"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="19dp"
+                android:textColorHint="@color/colorRegisterScreen"
+                android:textCursorDrawable="@null"
                 android:textSize="22sp"
-                tools:ignore="HardcodedText"
-                android:cursorVisible="true"
-                android:textCursorDrawable="@null"/>
+                tools:ignore="HardcodedText" />
 
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -157,24 +159,25 @@
                 android:id="@+id/editTextBirthDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="19dp"
+                android:background="@drawable/edittextborder"
+                android:cursorVisible="true"
                 android:ems="10"
                 android:hint="@string/birthDateLabel"
-                android:textColorHint="@color/colorRegisterScreen"
-                android:textColor="@color/colorPrimary"
-                android:background="@drawable/edittextborder"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="19dp"
-                android:textSize="22sp"
-                tools:ignore="HardcodedText"
                 android:inputType="none"
-                android:cursorVisible="true"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorRegisterScreen"
                 android:textCursorDrawable="@null"
-                android:textIsSelectable="true"/>
+                android:textIsSelectable="true"
+                android:textSize="22sp"
+                tools:ignore="HardcodedText" />
 
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -184,13 +187,13 @@
                 android:id="@+id/spinnerBloodType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="17dp"
                 android:entries="@array/spinnerItems"
-                android:theme="@style/spinnerTheme"/>
+                android:theme="@style/spinnerTheme" />
 
         </RelativeLayout>
 
@@ -203,15 +206,15 @@
                 android:id="@+id/buttonRegisterNewUser"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal"
-                tools:ignore="HardcodedText"
                 android:background="@color/colorPrimary"
+                android:focusable="true"
                 android:text="@string/register"
                 android:textColor="@color/colorAccent"
                 android:textSize="25sp"
-                android:focusable="true"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                tools:ignore="HardcodedText" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
