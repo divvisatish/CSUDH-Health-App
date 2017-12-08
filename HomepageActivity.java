@@ -226,7 +226,7 @@ public class HomepageActivity extends AppCompatActivity {
 
     private boolean isRequestTypeValid()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.alertDialog);
         builder.setTitle("Please select request type");
         //builder.setMessage("Please select one Option");
         builder.setPositiveButton("OK", null);
@@ -236,7 +236,7 @@ public class HomepageActivity extends AppCompatActivity {
         if (checkedRadioButtonId == -1) {
             // No item selected
             dialog.show();
-            dialog.getWindow().setLayout(800,350);
+            dialog.getWindow().setLayout(800,380);
             /*TextView messageText = (TextView)dialog.findViewById(android.R.id.message);
             messageText.setGravity(Gravity.CENTER);
             Button button = (Button) dialog.getButton(AlertDialog.BUTTON_POSITIVE);
