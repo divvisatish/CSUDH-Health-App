@@ -1,0 +1,47 @@
+    public void onClickButtonGetStarted(View view) {
+
+        final Button button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog alertDialog = new AlertDialog.Builder(GetStarted.this, R.style.alertDialog).create();
+
+                alertDialog.setMessage("Are you sure you want to sign out?");
+                alertDialog.setButton(alertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+//                        Toast.makeText(getApplicationContext(), "You clicked on Ok", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+                alertDialog.setButton(alertDialog.BUTTON_NEGATIVE,"No", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+                alertDialog.getWindow().setLayout(880,375);
+                final Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                final Button negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+              LinearLayout.LayoutParams positiveButton1 = (LinearLayout.LayoutParams) positiveButton.getLayoutParams();
+                positiveButton1.weight = 10;
+                positiveButton.setLayoutParams(positiveButton1);
+                negativeButton.setLayoutParams(positiveButton1);
+
+                alertDialog.setOnShowListener(new DialogInterface.OnShowListener(){
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        positiveButton.setFocusable(true);
+                        positiveButton.requestFocus();
+                    }
+                } );
+            }
+        });
+
+    }
