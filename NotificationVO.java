@@ -15,6 +15,15 @@ public class NotificationVO {
     private String lstUpdtDate;
     private int requestTypeId;
     private String requestTypeName;
+    private String toSendUid;
+
+    public String getToSendUid() {
+        return toSendUid;
+    }
+
+    public void setToSendUid(String toSendUid) {
+        this.toSendUid = toSendUid;
+    }
 
     public int getRequestTypeId() {
         return requestTypeId;

@@ -354,9 +354,10 @@ public class RegisterActivity extends AppCompatActivity {
             person.setBloodTypeName(spinnerBloodType.getSelectedItem().toString());
             person.setBloodTypeId(Integer.valueOf(String.valueOf(spinnerBloodType.getSelectedItemId())));
             person.setDateOfBirth(editTextBirthDate.getText().toString());
+            person.setTokenId("");
 
-            String currentDateandTime = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").format(new Date());
-            person.setCrtDate(currentDateandTime);
+            String currentDateAndTime = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").format(new Date());
+            person.setCrtDate(currentDateAndTime);
             person.setActiveFlag(1);
 
             DatabaseReference users = myRef.child("users");

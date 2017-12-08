@@ -1,6 +1,7 @@
 package com.csudh.healthapp.csudhhealthapp;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -188,11 +190,7 @@ public class HomepageActivity extends AppCompatActivity {
     }
 
     private void logout() {
-        if(auth!=null) {
-            auth.signOut();
-            Intent intent = new Intent(getApplicationContext(), com.csudh.healthapp.csudhhealthapp.LogInActivity.class);
-            startActivity(intent);
-        }
+        confirmLogOut();
     }
 
     @Override
@@ -209,7 +207,7 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 if(isRequestTypeValid()) {
-                    Intent intent = new Intent(getApplicationContext(), com.csudh.healthapp.csudhhealthapp.NotificationActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
                     RadioButton radioButton = (RadioButton) findViewById(radioGroupRequestType.getCheckedRadioButtonId());
                     Bundle bundle = new Bundle();
                     bundle.putInt("requestTypeId", radioGroupRequestType.getCheckedRadioButtonId());
@@ -341,5 +339,43 @@ public class HomepageActivity extends AppCompatActivity {
 
     }
 
+    private void confirmLogOut() {
+
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(HomepageActivity.this, R.style.alertDialog).create();
+
+        alertDialog.setMessage("Are you sure you want to sign out?");
+        alertDialog.setButton(alertDialog.BUTTON_POSITIVE, "No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+
+        alertDialog.setButton(alertDialog.BUTTON_NEGATIVE,"Yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                if(auth!=null) {
+                    auth.signOut();
+                    Intent intent = new Intent(getApplicationContext(), com.csudh.healthapp.csudhhealthapp.LogInActivity.class);
+                    startActivity(intent);
+                    onBackPressed();
+                    finish();
+                }
+            }
+        });
+        alertDialog.show();
+        alertDialog.getWindow().setLayout(880,375);
+        final Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        final Button negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+        LinearLayout.LayoutParams positiveButton1 = (LinearLayout.LayoutParams) positiveButton.getLayoutParams();
+        positiveButton1.weight = 10;
+        positiveButton.setLayoutParams(positiveButton1);
+        negativeButton.setLayoutParams(positiveButton1);
+    }
 
 }

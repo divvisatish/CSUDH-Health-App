@@ -21,6 +21,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 /**
  * Created by Darshit on 11/6/2017.
@@ -32,6 +35,7 @@ public class LogInActivity extends AppCompatActivity {
     private EditText inputEmail, inputPassword;
     private Button signIn, register;
     private FirebaseAuth auth;
+    private DatabaseReference userDatabase;
 
 
     @Override
@@ -48,6 +52,8 @@ public class LogInActivity extends AppCompatActivity {
 
 
         auth = FirebaseAuth.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        userDatabase = database.getReference();
         if(auth.getCurrentUser() != null) {
             startActivity(new Intent (this, HomepageActivity.class) );
             finish();
@@ -92,10 +98,13 @@ public class LogInActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
                                 Toast.makeText(LogInActivity.this, "Log In successful", Toast.LENGTH_SHORT).show();
+                                String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                                userDatabase.child("users").child(auth.getCurrentUser().getUid()).child("deviceToken").setValue(deviceToken);
+
                                 Intent intent = new Intent(context, HomepageActivity.class);
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(LogInActivity.this, "User is not registered in the system: " + task.getException(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LogInActivity.this, "User is not registered in the system: ", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

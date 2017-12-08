@@ -7,5 +7,5 @@
         android:visible="true"
         android:background="@color/colorPrimary"
         android:backgroundTint="@color/colorAccent"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 </menu>

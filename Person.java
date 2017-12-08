@@ -21,6 +21,15 @@ public class Person {
     private String lstUpdtDate;
     private String dateOfBirth;
     private String uid;
+    private String tokenId;
+
+    public String getTokenId() {
+        return tokenId;
+    }
+
+    public void setTokenId(String tokenId) {
+        this.tokenId = tokenId;
+    }
 
     public String getNotificationKeys() {
         return notificationKeys;

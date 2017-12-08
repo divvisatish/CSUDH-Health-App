@@ -31,7 +31,7 @@ public class AppMainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        finish();
     }
 
     /*@Override
