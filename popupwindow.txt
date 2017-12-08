@@ -1,4 +1,4 @@
-    public void onClickButtonGetStarted(View view) {
+public void onClickButtonGetStarted(View view) {
 
         final Button button = (Button) findViewById(R.id.button);
 
@@ -8,7 +8,7 @@
                 final AlertDialog alertDialog = new AlertDialog.Builder(GetStarted.this, R.style.alertDialog).create();
 
                 alertDialog.setMessage("Are you sure you want to sign out?");
-                alertDialog.setButton(alertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                alertDialog.setButton(alertDialog.BUTTON_POSITIVE, "No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -17,7 +17,7 @@
                 });
 
 
-                alertDialog.setButton(alertDialog.BUTTON_NEGATIVE,"No", new DialogInterface.OnClickListener() {
+                alertDialog.setButton(alertDialog.BUTTON_NEGATIVE,"Yes", new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -33,14 +33,14 @@
                 positiveButton1.weight = 10;
                 positiveButton.setLayoutParams(positiveButton1);
                 negativeButton.setLayoutParams(positiveButton1);
-
-                alertDialog.setOnShowListener(new DialogInterface.OnShowListener(){
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        positiveButton.setFocusable(true);
-                        positiveButton.requestFocus();
-                    }
-                } );
+//
+//                alertDialog.setOnShowListener(new DialogInterface.OnShowListener(){
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        positiveButton.setFocusable(true);
+//                        positiveButton.requestFocus();
+//                    }
+//                } );
             }
         });
 
