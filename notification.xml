@@ -7,13 +7,35 @@
     android:background="@color/colorAccent"
     tools:context="com.csudh.healthapp.csudhhealthapp.NotificationActivity">
 
+    <TextView
+        android:id="@+id/textViewRequestType"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignEnd="@+id/spinnerBloodTypeNotification"
+        android:layout_alignLeft="@+id/spinnerBloodTypeNotification"
+        android:layout_alignRight="@+id/spinnerBloodTypeNotification"
+        android:layout_alignStart="@+id/spinnerBloodTypeNotification"
+        android:layout_marginTop="23dp"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorRegisterScreen"
+        android:textCursorDrawable="@null"
+        android:textSize="22sp" />
+
+    <Spinner
+        android:id="@+id/spinnerBloodTypeNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="78dp"
+        android:layout_marginRight="20dp"
+        android:entries="@array/spinnerItems"
+        android:theme="@style/spinnerTheme" />
+
     <EditText
         android:id="@+id/editTextComments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonSend"
-        android:layout_marginBottom="31dp"
-        android:layout_marginLeft="20dp"
         android:cursorVisible="true"
         android:ems="10"
         android:hint="Comments"
@@ -23,6 +45,9 @@
         android:background="@drawable/edittextborder"
         android:textCursorDrawable="@null"
         android:textSize="22sp"
+        android:layout_below="@+id/spinnerBloodTypeNotification"
+        android:layout_alignLeft="@+id/spinnerBloodTypeNotification"
+        android:layout_alignStart="@+id/spinnerBloodTypeNotification"
         android:layout_alignRight="@+id/spinnerBloodTypeNotification"
         android:layout_alignEnd="@+id/spinnerBloodTypeNotification" />
 
@@ -56,30 +81,8 @@
         android:textAlignment="center"
         android:textSize="27sp" />
 
-    <Spinner
-        android:id="@+id/spinnerBloodTypeNotification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editTextComments"
-        android:layout_marginBottom="25dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:entries="@array/spinnerItems"
-        android:theme="@style/spinnerTheme" />
 
-    <TextView
-        android:id="@+id/textViewRequestType"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_above="@+id/editTextCommentsspinnerBloodTypeNotification"
-        android:layout_alignEnd="@+id/spinnerBloodTypeNotification"
-        android:layout_alignLeft="@+id/spinnerBloodTypeNotification"
-        android:layout_alignRight="@+id/spinnerBloodTypeNotification"
-        android:layout_alignStart="@+id/spinnerBloodTypeNotification"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorRegisterScreen"
-        android:textCursorDrawable="@null"
-        android:textSize="22sp" />
+
+
 
 </android.widget.RelativeLayout>

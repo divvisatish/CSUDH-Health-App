@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="spinnerItems">
-        <item id="0">Select</item>
+        <item id="0">Blood Type</item>
         <item id="1">A+</item>
         <item id="2">A-</item>
         <item id="3">B+</item>

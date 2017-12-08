@@ -74,13 +74,6 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegisterNewUser = (Button) findViewById(R.id.buttonRegisterNewUser);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.logo); //Converting drawable into bitmap
-        ResizeBitmapImage resizeBitmapImage = new ResizeBitmapImage();
-        Bitmap new_icon = resizeBitmapImage.resizeBitmapImageFn(icon, 150); //resizing the bitmap
-        Drawable d = new BitmapDrawable(getResources(),new_icon); //Converting bitmap into drawable
-
-        getSupportActionBar().setLogo(d);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setTitle("");
 
         resetScreen();
