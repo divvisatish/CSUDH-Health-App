@@ -23,6 +23,7 @@ public class AppMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_main);
+        getSupportActionBar().setTitle("");
 
         addListenerOnButton();
         auth.getInstance().signOut();

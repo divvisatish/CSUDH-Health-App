@@ -1,6 +1,7 @@
 package com.csudh.healthapp.csudhhealthapp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -36,6 +37,7 @@ public class LogInActivity extends AppCompatActivity {
     private Button signIn, register;
     private FirebaseAuth auth;
     private DatabaseReference userDatabase;
+    private ProgressDialog mProgress;
 
 
     @Override
@@ -50,6 +52,11 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
 
+        mProgress = new ProgressDialog(this);
+        mProgress.setTitle("Processing...");
+        mProgress.setMessage("Please wait...");
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
 
         auth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -93,10 +100,12 @@ public class LogInActivity extends AppCompatActivity {
                     return;
                 }
                 else {
+                    mProgress.show();
                     auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
+                                mProgress.dismiss();
                                 Toast.makeText(LogInActivity.this, "Log In successful", Toast.LENGTH_SHORT).show();
                                 String deviceToken = FirebaseInstanceId.getInstance().getToken();
                                 userDatabase.child("users").child(auth.getCurrentUser().getUid()).child("deviceToken").setValue(deviceToken);
@@ -104,6 +113,7 @@ public class LogInActivity extends AppCompatActivity {
                                 Intent intent = new Intent(context, HomepageActivity.class);
                                 startActivity(intent);
                             } else {
+                                mProgress.dismiss();
                                 Toast.makeText(LogInActivity.this, "User is not registered in the system: ", Toast.LENGTH_SHORT).show();
                             }
                         }

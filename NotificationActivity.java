@@ -1,6 +1,7 @@
 package com.csudh.healthapp.csudhhealthapp;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -61,11 +62,18 @@ public class NotificationActivity extends AppCompatActivity {
     int requestTypeId = -1;
     DatabaseReference myRef;
     String sendUserId="CQDoH870EbOjqCzZZj6QK1VBQR42";
+    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notification);
+
+        mProgress = new ProgressDialog(this);
+        mProgress.setTitle("Processing...");
+        mProgress.setMessage("Please wait...");
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
 
         TextView textView = (TextView) findViewById(R.id.textViewRequestType);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -159,6 +167,7 @@ public class NotificationActivity extends AppCompatActivity {
             public void onClick(View arg0) {
 
                 if(isNotificationDetailsValid()) {
+                    mProgress.show();
                     NotificationVO notificationVO = prepareNotificationVO();
                     if(notificationVO!=null && loggedInPerson!=null)
                     {
@@ -172,23 +181,11 @@ public class NotificationActivity extends AppCompatActivity {
                         if(notificationKeys!=null){
                             notificationKeys = notificationKeys + "," + key;
 
-                            getCompatibleBloodType();
-
+                            myRef.child("users").child(auth.getCurrentUser().getUid()).child("notificationKeys").setValue(notificationKeys);
+                            Toast.makeText(NotificationActivity.this, "Request has been sent to desired users", Toast.LENGTH_SHORT).show();
                         }
-
-                        myRef.child("users").child(auth.getCurrentUser().getUid()).child("notificationKeys").setValue(notificationKeys).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                myRef.child("users").orderByChild("bloodTypeId").equals(compatibleDataType.get(0));
-
-                            }
-                        });
-                        //for notification - start
-                        //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("csudh-health-app");
-                        //dbRef.child("token").setValue(FirebaseInstanceId.getInstance().getToken());
-                        //for notification - end
                     }
-
+                    mProgress.dismiss();
                     Intent intent = new Intent(context, HomepageActivity.class);
                     startActivity(intent);
                 }

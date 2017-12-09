@@ -1,6 +1,7 @@
 package com.csudh.healthapp.csudhhealthapp;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -76,6 +77,7 @@ public class HomepageActivity extends AppCompatActivity {
     int countOMinus = 0;
     int countHH = 0;
     int countTotal=0;
+    private ProgressDialog mProgress;
     //
 
     @Override
@@ -85,6 +87,28 @@ public class HomepageActivity extends AppCompatActivity {
         radioGroupRequestType = (RadioGroup)findViewById(R.id.radioGroupRequestType);
         textViewWelcomeMessage = (TextView) findViewById(R.id.textViewWelcomeMessage);
         pieChart = (PieChart) findViewById(R.id.chart1);
+
+        mProgress = new ProgressDialog(this);
+        mProgress.setTitle("Processing...");
+        mProgress.setMessage("Please wait...");
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null && !bundle.isEmpty() && Boolean.parseBoolean(bundle.get("flag").toString())==true)
+        {
+            String requestType = bundle.get("requestType").toString();
+            String bloodType = bundle.get("bloodType").toString();
+            String comment = bundle.get("comment").toString();
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.alertDialog);
+            builder.setMessage("Request type: "+requestType+"\nRequired blood type: "+bloodType+"\nComments: "+comment);
+            builder.setPositiveButton("OK", null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            dialog.getWindow().setLayout(800,500);
+            bundle.putString("flag","false");
+        }
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.logo); //Converting drawable into bitmap
@@ -357,11 +381,13 @@ public class HomepageActivity extends AppCompatActivity {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                mProgress.show();
                 dialog.dismiss();
                 if(auth!=null) {
                     auth.signOut();
                     Intent intent = new Intent(getApplicationContext(), com.csudh.healthapp.csudhhealthapp.LogInActivity.class);
                     startActivity(intent);
+                    mProgress.dismiss();
                     onBackPressed();
                     finish();
                 }
